@@ -1,40 +1,43 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraMover : MonoBehaviour
 {
-    [SerializeField] private float _moverSpeed;
-    [SerializeField] private GameObject _prefab;
+    private const string Horizontal = nameof(Horizontal);
+    private const string Vertical = nameof(Vertical);
 
-    [SerializeField] private float _leftPosition, _rightPosition, _upPosition, _downPosition;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _zoomSpeed;
+    [SerializeField] private float _rotateSpeed;
 
-    [SerializeField] private bool _cameraScroll = true;
-    [SerializeField] private bool _cameraMove = true;
-
-    [SerializeField] private float _minZoom, _maxZoom;
+    [SerializeField] private float _minZoom;
+    [SerializeField] private float _maxZoom;
 
     private void Update()
     {
-        float position = Input.GetAxis("Mouse ScrollWheel");
+        TryRotate(-_rotateSpeed, KeyCode.Q);
+        TryRotate(_rotateSpeed, KeyCode.E);
 
-        if (position != 0 && _cameraScroll)
-        {
-            _prefab.transform.Translate(new Vector3(0, 0, position * _moverSpeed / 10));
-            _prefab.transform.localPosition = new Vector3(_prefab.transform.localPosition.x, Mathf.Clamp(_prefab.transform.localPosition.y, _minZoom, _maxZoom), transform.localPosition.z);
-        }
+        Move();
+        Zoom();
+    }
 
-        if (_cameraMove)
-        {
-            if ((transform.position.z <= _leftPosition) && Input.mousePosition.x < 2)
-                transform.position += transform.forward * _moverSpeed * Time.deltaTime;
+    private void TryRotate(float rotateSpeed, KeyCode key)
+    {
+        if (Input.GetKey(key))
+            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
+    }
 
-            if ((transform.position.z >= _rightPosition) && (int)Input.mousePosition.x > Screen.width - 2)
-                transform.position -= transform.forward * _moverSpeed * Time.deltaTime;
+    private void Move()
+    {
+        float horizontal = Input.GetAxis(Horizontal);
+        float vertical = Input.GetAxis(Vertical);
 
-            if ((transform.position.x <= _upPosition) && Input.mousePosition.y > Screen.height - 2)
-                transform.position += transform.right * _moverSpeed * Time.deltaTime;
+        transform.Translate(new Vector3(horizontal, 0, vertical) * Time.deltaTime * _moveSpeed, Space.Self);
+    }
 
-            if ((transform.position.x >= _downPosition) && Input.mousePosition.y < 2)
-                transform.position -= transform.right * _moverSpeed * Time.deltaTime;
-        }
+    private void Zoom()
+    {
+        transform.position += transform.up * _zoomSpeed * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _minZoom, _maxZoom), transform.position.z);
     }
 }
