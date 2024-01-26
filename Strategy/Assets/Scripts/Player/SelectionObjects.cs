@@ -5,12 +5,11 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Camera))]
 public class SelectionObjects : MonoBehaviour
 {
-    private readonly int Walk = Animator.StringToHash(nameof(Walk));
-
     [SerializeField] private GameObject _template;
     [SerializeField] private LayerMask _layerMask, _layerPlayer;
     [SerializeField] private List<GameObject> _players;
-    [SerializeField] private Animator _wingsAnimator;
+
+    [SerializeField] private Animations _animations;
 
     private Camera _camera;
     private RaycastHit _hit;
@@ -26,7 +25,7 @@ public class SelectionObjects : MonoBehaviour
         UserInput();
     }
 
-    private void UserInput()
+    private void UserInput()    
     {
         if (Input.GetMouseButtonDown(1) && _players.Count > 0)
         {
@@ -38,7 +37,7 @@ public class SelectionObjects : MonoBehaviour
                 {
                     player.GetComponent<NavMeshAgent>().SetDestination(agentTarget.point);
 
-                    _wingsAnimator.SetTrigger(Walk);
+                    _animations.PlayWalk();
                 }
             }
         }

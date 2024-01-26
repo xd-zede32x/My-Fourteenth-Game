@@ -13,11 +13,11 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _EMISSION
   - _METALLICGLOSSMAP
   - _NORMALMAP
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
@@ -87,7 +87,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1.4
-    - _Cutoff: 1
+    - _Cutoff: 0
     - _DRR: 0.7321428
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -101,7 +101,7 @@ Material:
     - _Parallax: 0.005
     - _Roughness: 0.5535714
     - _Shininess: 0.03303574
-    - _SmoothnessTextureChannel: 0
+    - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0

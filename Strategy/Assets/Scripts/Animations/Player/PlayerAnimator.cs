@@ -3,19 +3,19 @@ using UnityEngine;
 [RequireComponent(typeof(Animations))]
 public class PlayerAnimator : MonoBehaviour
 {
-    private Animations _clickAnimation;
+    private Animations _animations;
 
     private void Start()
     {
-        _clickAnimation = GetComponent<Animations>();
+        _animations = GetComponent<Animations>();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            _clickAnimation.PlayAttack();
+            _animations.PlayAttack();
 
         if (Input.GetMouseButtonDown(1))
-            _clickAnimation.PlayDamage();
+            _animations.PlayDamage();
     }
 }
