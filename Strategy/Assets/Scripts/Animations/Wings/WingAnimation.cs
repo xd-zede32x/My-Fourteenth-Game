@@ -15,4 +15,4 @@ public class WingAnimation : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             _animations.PlayWalkWing();
     }
-}   
+}
